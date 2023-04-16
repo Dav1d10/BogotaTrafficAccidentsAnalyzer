@@ -51,23 +51,34 @@ dos listas, una para los videos, otra para las categorias de los mismos.
 
 
 def new_data_structs():
-    """
-    Inicializa las estructuras de datos del modelo. Las crea de
-    manera vacía para posteriormente almacenar la información.
-    """
-    #TODO: Inicializar las estructuras de datos
-    pass
+    data_structs = {"Accidente": None, "Fecha": None}
 
+    data_structs["Accidente"] = lt.newList("ARRAY_LIST")
 
+    data_structs["Fecha"] = om.newMap(omaptype="BST", comparefunction=compararFechas)
+    return data_structs
+
+def añadir_accidente(data_structs, accidente):
+    lt.addLast(data_structs["Accidente"], accidente)
+    nuevaFecha(data_structs["Fecha"], accidente)
+    return data_structs
 # Funciones para agregar informacion al modelo
 
-def add_data(data_structs, data):
-    """
-    Función para agregar nuevos elementos a la lista
-    """
-    #TODO: Crear la función para agregar elementos a una lista
-    pass
+def nuevaFecha(mapa, accidente):
+    fecha = accidente["FECHA_OCURRENCIA_ACC"]
+    fechaAccidente = datetime.datetime.strptime(fecha, "%Y-%m-%d %H:%M:%S")
+    entry = om.get(map, fechaAccidente.date())
+    if entry is None:
+        datentry = nuevaentrada(accidente)
+        om.put(map, fechaAccidente, datentry)
+    else:
+        datentry = me.getValue(entry)
+    añadirFecha(datentry, accidente)
+    return map
 
+def añadirFecha(datentry, accidente):
+    lst = datentry["lstaccidentes"]
+    lt.addLast(lst, accidente)
 
 # Funciones para creacion de datos
 
@@ -163,12 +174,16 @@ def req_8(data_structs):
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
-def compare(data_1, data_2):
+def compararFechas(fecha1, fecha2):
     """
-    Función encargada de comparar dos datos
+    Compara dos fechas
     """
-    #TODO: Crear función comparadora de la lista
-    pass
+    if (fecha1 == fecha2):
+        return 0
+    elif (fecha1 > fecha2):
+        return 1
+    else:
+        return -1
 
 # Funciones de ordenamiento
 
