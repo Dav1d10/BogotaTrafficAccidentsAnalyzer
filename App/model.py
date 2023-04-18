@@ -55,30 +55,44 @@ def new_data_structs():
 
     data_structs["Accidente"] = lt.newList("ARRAY_LIST")
 
-    data_structs["Fecha"] = om.newMap(omaptype="BST", comparefunction=compararFechas)
+    data_structs["Fecha"] = om.newMap(omaptype="RBT", 
+                                      comparefunction=compararFechas)
     return data_structs
+
+
+# Funciones para agregar informacion al modelo
+
 
 def añadir_accidente(data_structs, accidente):
     lt.addLast(data_structs["Accidente"], accidente)
-    nuevaFecha(data_structs["Fecha"], accidente)
+    actualizarFecha(data_structs["Fecha"], accidente)
     return data_structs
-# Funciones para agregar informacion al modelo
 
-def nuevaFecha(mapa, accidente):
+
+def actualizarFecha(mapa, accidente):
     fecha = accidente["FECHA_OCURRENCIA_ACC"]
     fechaAccidente = datetime.datetime.strptime(fecha, "%Y-%m-%d %H:%M:%S")
-    entry = om.get(map, fechaAccidente.date())
+    entry = om.get(mapa, fechaAccidente.date())
     if entry is None:
-        datentry = nuevaentrada(accidente)
-        om.put(map, fechaAccidente, datentry)
+        fecha_entry = nuevaEntrada(accidente)
+        om.put(mapa, fechaAccidente.date(), fecha_entry)
     else:
-        datentry = me.getValue(entry)
-    añadirFecha(datentry, accidente)
-    return map
+        fecha_entry = me.getValue(entry)
+    añadirFecha(fecha_entry, accidente)
+    return mapa
 
-def añadirFecha(datentry, accidente):
-    lst = datentry["lstaccidentes"]
+
+def nuevaEntrada(accidente):
+    entry = {"lstaccidentes": None}
+    entry["lstaccidentes"] = lt.newList("ARRAY_LIST")
+    lt.addLast(entry["lstaccidentes"], accidente)
+    return entry
+
+
+def añadirFecha(fecha_entry, accidente):
+    lst = fecha_entry["lstaccidentes"]
     lt.addLast(lst, accidente)
+    return fecha_entry
 
 # Funciones para creacion de datos
 

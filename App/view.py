@@ -48,7 +48,9 @@ def new_controller():
         Se crea una instancia del controlador
     """
     #TODO: Llamar la función del controlador donde se crean las estructuras de datos
-    pass
+    control = controller.new_controller()
+    return control
+    
 
 
 def print_menu():
@@ -65,12 +67,14 @@ def print_menu():
     print("0- Salir")
 
 
-def load_data(control):
+def load_data(control, filename):
     """
     Carga los datos
     """
     #TODO: Realizar la carga de datos
-    pass
+    accidentes = controller.load_data(control, filename)
+    return accidentes
+    
 
 
 def print_data(control, id):
@@ -145,7 +149,7 @@ def print_req_8(control):
 
 
 # Se crea el controlador asociado a la vista
-control = new_controller()
+
 
 # main del reto
 if __name__ == "__main__":
@@ -159,8 +163,37 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         try:
             if int(inputs) == 1:
+                control = new_controller()
+                print("Seleccione el porcentaje de datos que desea utilizar: ")
+                print("1: 0.5% ")
+                print("2: 5% ")
+                print("3: 10% ")
+                print("4: 20% ")
+                print("5: 30% ")
+                print("6: 50% ")
+                print("7: 80% ")
+                print("8: 100% ")
+                respuesta = int(input())
+                if respuesta == 1:
+                    filename = "small.csv"
+                elif respuesta == 2:
+                    filename = "5pct.csv"
+                elif respuesta == 3:
+                    filename = "10pct.csv"
+                elif respuesta == 4:
+                    filename = "20pct.csv"
+                elif respuesta == 5:
+                    filename = "30pct.csv"
+                elif respuesta == 6:
+                    filename = "50pct.csv"
+                elif respuesta == 7:
+                    filename = "80pct.csv"
+                elif respuesta == 8:
+                    filename = "large.csv"  
+                print("--------------------------------------------------------------------") 
                 print("Cargando información de los archivos ....\n")
-                data = load_data(control)
+                data = load_data(control, filename)
+                print(data)
             elif int(inputs) == 2:
                 print_req_1(control)
 
