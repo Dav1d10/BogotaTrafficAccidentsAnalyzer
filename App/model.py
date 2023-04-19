@@ -71,7 +71,7 @@ def añadir_accidente(data_structs, accidente):
 
 def actualizarFecha(mapa, accidente):
     fecha = accidente["FECHA_OCURRENCIA_ACC"]
-    fechaAccidente = datetime.datetime.strptime(fecha, "%Y-%m-%d %H:%M:%S")
+    fechaAccidente = datetime.datetime.strptime(fecha, "%Y/%m/%d")
     entry = om.get(mapa, fechaAccidente.date())
     if entry is None:
         fecha_entry = nuevaEntrada(accidente)
@@ -122,11 +122,13 @@ def data_size(data_structs):
     pass
 
 
-def req_1(data_structs):
+def req_1(data_structs, fechaInicial, fechaFinal):
     """
     Función que soluciona el requerimiento 1
     """
     # TODO: Realizar el requerimiento 1
+    fechaInicial = ["FECHA_HORA_ACC"]
+    fechaFinal = ["FECHA_HORA_ACC"]
     pass
 
 
