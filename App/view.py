@@ -84,6 +84,27 @@ def print_data(control, id):
     #TODO: Realizar la función para imprimir un elemento
     pass
 
+
+def imprimir_datos(datos):
+    size = lt.size(datos)
+    if size:
+        headers = ["FECHA_OCURRENCIA_ACC", "FECHA_HORA_ACC", "LOCALIDAD", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LATITUD", "LONGITUD"]
+        table = []
+        for dato in lt.iterator(datos):
+            table.append([dato["FECHA_OCURRENCIA_ACC"],
+                          dato["FECHA_HORA_ACC"],
+                          dato["LOCALIDAD"],
+                          dato["DIRECCION"],
+                          dato["GRAVEDAD"],
+                          dato["CLASE_ACC"],
+                          dato["LATITUD"],
+                          dato["LONGITUD"],])         
+        print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
+        print('\n')
+    else:
+        print("No se encontraron datos")
+        
+
 def print_req_1(control):
     """
         Función que imprime la solución del Requerimiento 1 en consola
@@ -193,7 +214,13 @@ if __name__ == "__main__":
                 print("--------------------------------------------------------------------") 
                 print("Cargando información de los archivos ....\n")
                 data = load_data(control, filename)
-                print(data)
+                #print(data)
+                primeros_tres = controller.primerosTres(data["Accidente"])
+                ultimos_tres = controller.ultimosTres(data["Accidente"])
+                print("Los primeros tres registros de accidentes cargados fueron: ")
+                imprimir_datos(primeros_tres)
+                print("Los últimos tres registros de accidentes cargados fueron: ")
+                imprimir_datos(ultimos_tres)
             elif int(inputs) == 2:
                 print_req_1(control)
 
