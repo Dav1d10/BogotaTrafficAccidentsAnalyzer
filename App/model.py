@@ -106,6 +106,14 @@ def new_data(id, info):
 
 # Funciones de consulta
 
+def primerosTres(data):
+    datos = lt.subList(data, 1, 3)
+    return datos
+
+def ultimosTres(data):
+    datos = lt.subList(data, lt.size(data) -2, 3)
+    return datos
+
 def get_data(data_structs, id):
     """
     Retorna un dato a partir de su ID

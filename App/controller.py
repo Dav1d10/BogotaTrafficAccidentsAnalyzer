@@ -55,6 +55,15 @@ def load_data(control, filename):
     for accidente in input_file:
         model.añadir_accidente(control, accidente)
     return control
+
+
+def primerosTres(control):
+    datos = model.primerosTres(control)
+    return datos
+
+def ultimosTres(control):
+    datos = model.ultimosTres(control)
+    return datos
     
 
 # Funciones de ordenamiento
