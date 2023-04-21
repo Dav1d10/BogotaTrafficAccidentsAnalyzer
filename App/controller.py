@@ -86,13 +86,16 @@ def get_data(control, id):
     pass
 
 
-def req_1(control):
+def req_1(control, fechaInicial, fechaFinal):
     """
     Retorna el resultado del requerimiento 1
     """
     # TODO: Modificar el requerimiento 1
-    pass
-
+    fechaInicial = datetime.datetime.strptime(fechaInicial, "%Y/%m/%d")
+    fechaFinal = datetime.datetime.strptime(fechaFinal, "%Y/%m/%d")
+    accidente = model.req_1(control, fechaInicial.date(), fechaFinal.date())
+    return accidente
+    
 
 def req_2(control):
     """

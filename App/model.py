@@ -135,9 +135,13 @@ def req_1(data_structs, fechaInicial, fechaFinal):
     Función que soluciona el requerimiento 1
     """
     # TODO: Realizar el requerimiento 1
-    fechaInicial = ["FECHA_HORA_ACC"]
-    fechaFinal = ["FECHA_HORA_ACC"]
-    pass
+    finalList = lt.newList("ARRAY_LIST")
+    mapa = data_structs["Fecha"]
+    rango = om.values(mapa, fechaInicial, fechaFinal)
+    for fechas in lt.iterator(rango):
+        lt.addLast(finalList, fechas["lstaccidentes"])
+    return finalList
+    
 
 
 def req_2(data_structs):

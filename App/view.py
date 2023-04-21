@@ -105,12 +105,14 @@ def imprimir_datos(datos):
         print("No se encontraron datos")
         
 
-def print_req_1(control):
+def print_req_1(control, fechaInicial, fechaFinal):
     """
         Función que imprime la solución del Requerimiento 1 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 1
-    pass
+    datos = controller.req_1(control, fechaInicial, fechaFinal)
+    return datos
+    
 
 
 def print_req_2(control):
@@ -222,7 +224,9 @@ if __name__ == "__main__":
                 print("Los últimos tres registros de accidentes cargados fueron: ")
                 imprimir_datos(ultimos_tres)
             elif int(inputs) == 2:
-                print_req_1(control)
+                fechaInicial = str(input("Ingrese la fecha inicial: "))
+                fechaFinal = str(input("Ingrese la fecha final: "))
+                print(print_req_1(control, fechaInicial, fechaFinal))
 
             elif int(inputs) == 3:
                 print_req_2(control)
