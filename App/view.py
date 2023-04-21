@@ -111,7 +111,25 @@ def print_req_1(control, fechaInicial, fechaFinal):
     """
     # TODO: Imprimir el resultado del requerimiento 1
     datos = controller.req_1(control, fechaInicial, fechaFinal)
-    return datos
+    size = lt.size(datos)
+    if size:
+        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        table = []
+        for dato in lt.iterator(datos):
+            for accidente in lt.iterator(dato):
+                table.append([accidente["CODIGO_ACCIDENTE"],
+                            accidente["DIA_OCURRENCIA_ACC"],
+                            accidente["DIRECCION"],
+                            accidente["GRAVEDAD"],
+                            accidente["CLASE_ACC"],
+                            accidente["LOCALIDAD"],
+                            accidente["FECHA_HORA_ACC"],
+                            accidente["LATITUD"],
+                            accidente["LONGITUD"],])         
+        print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
+        print('\n')
+    else:
+        print("No se encontraron datos")
     
 
 

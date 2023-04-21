@@ -74,7 +74,7 @@ def actualizarFecha(mapa, accidente):
     fechaAccidente = datetime.datetime.strptime(fecha, "%Y/%m/%d")
     entry = om.get(mapa, fechaAccidente.date())
     if entry is None:
-        fecha_entry = nuevaEntrada(accidente)
+        fecha_entry = nuevaEntrada()
         om.put(mapa, fechaAccidente.date(), fecha_entry)
     else:
         fecha_entry = me.getValue(entry)
@@ -82,10 +82,9 @@ def actualizarFecha(mapa, accidente):
     return mapa
 
 
-def nuevaEntrada(accidente):
+def nuevaEntrada():
     entry = {"lstaccidentes": None}
     entry["lstaccidentes"] = lt.newList("ARRAY_LIST")
-    lt.addLast(entry["lstaccidentes"], accidente)
     return entry
 
 
