@@ -97,12 +97,16 @@ def req_1(control, fechaInicial, fechaFinal):
     return accidente
     
 
-def req_2(control):
+def req_2(control, horaInicial, horaFinal, mes, año):
     """
     Retorna el resultado del requerimiento 2
     """
     # TODO: Modificar el requerimiento 2
-    pass
+    horaInicial = datetime.datetime.strptime(horaInicial, "%H:%M:%S")
+    horaFinal = datetime.datetime.strptime(horaFinal, "%H:%M:%S")
+    accidente = model.req_2(control, horaInicial.date(), horaFinal.date(), mes, año)
+    return accidente
+    
 
 
 def req_3(control):

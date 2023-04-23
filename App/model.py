@@ -57,6 +57,9 @@ def new_data_structs():
 
     data_structs["Fecha"] = om.newMap(omaptype="RBT", 
                                       comparefunction=None)
+    
+    data_structs["Hora"] = om.newMap(omaptype="RBT", 
+                                      comparefunction=None)
     return data_structs
 
 
@@ -66,6 +69,7 @@ def new_data_structs():
 def añadir_accidente(data_structs, accidente):
     lt.addLast(data_structs["Accidente"], accidente)
     actualizarFecha(data_structs["Fecha"], accidente)
+    actualizarHora(data_structs["Hora"], accidente)
     return data_structs
 
 
@@ -79,6 +83,19 @@ def actualizarFecha(mapa, accidente):
     else:
         fecha_entry = me.getValue(entry)
     añadirFecha(fecha_entry, accidente)
+    return mapa
+
+
+def actualizarHora(mapa, accidente):
+    hora = accidente["HORA_OCURRENCIA_ACC"]
+    horaAccidente = datetime.datetime.strptime(hora, "%H:%M:%S")
+    entry = om.get(mapa, horaAccidente.date())
+    if entry is None:
+        hora_entry = nuevaEntrada()
+        om.put(mapa, horaAccidente.date(), hora_entry)
+    else:
+        hora_entry = me.getValue(entry)
+    añadirFecha(hora_entry, accidente)
     return mapa
 
 
@@ -145,13 +162,23 @@ def req_1(data_structs, fechaInicial, fechaFinal):
     
 
 
-def req_2(data_structs):
+def req_2(data_structs, horaInicial, horaFinal, mes, año):
     """
     Función que soluciona el requerimiento 2
     """
     # TODO: Realizar el requerimiento 2
+    finalList = lt.newList("ARRAY_LIST")
+    mapa = data_structs["Hora"]
+    rango = om.values(mapa, horaInicial, horaFinal)
+    for horas in lt.iterator(rango):
+        for i in lt.iterator(horas["lstaccidentes"]):
+            if str(i["MES_OCURRENCIA_ACC"]) == mes:
+                if str(i["ANO_OCURRENCIA_ACC"]) == año:
+                    respuesta = i
+                    lt.addLast(finalList, respuesta)
+    return finalList
+                    
     
-    pass
 
 
 def req_3(data_structs):

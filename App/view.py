@@ -132,12 +132,14 @@ def print_req_1(control, fechaInicial, fechaFinal):
     
 
 
-def print_req_2(control):
+def print_req_2(control, horaInicial, horaFinal, mes, año):
     """
         Función que imprime la solución del Requerimiento 2 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 2
-    pass
+    datos = controller.req_2(control, horaInicial, horaFinal, mes, año)
+    return datos
+    
 
 
 def print_req_3(control):
@@ -233,7 +235,7 @@ if __name__ == "__main__":
                 print("--------------------------------------------------------------------") 
                 print("Cargando información de los archivos ....\n")
                 data = load_data(control, filename)
-                #print(data)
+                print(data)
                 primeros_tres = controller.primerosTres(data["Accidente"])
                 ultimos_tres = controller.ultimosTres(data["Accidente"])
                 print("Los primeros tres registros de accidentes cargados fueron: ")
@@ -246,7 +248,11 @@ if __name__ == "__main__":
                 print(print_req_1(control, fechaInicial, fechaFinal))
 
             elif int(inputs) == 3:
-                print_req_2(control)
+                horaInicial = str(input("Ingrese la hora inicial: "))
+                horaFinal = str(input("Ingrese la hora final: "))
+                mes = str(input("Ingrese el mes del accidente: "))
+                año = str(input("Ingrese el año del accidente: "))
+                print(print_req_2(control, horaInicial, horaFinal, mes, año))
 
             elif int(inputs) == 4:
                 print_req_3(control)
