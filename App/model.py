@@ -60,6 +60,10 @@ def new_data_structs():
     
     data_structs["Hora"] = om.newMap(omaptype="RBT", 
                                       comparefunction=compararFechas)
+    
+    data_structs["Clase del accidente"] = mp.newMap(6, maptype="CHAINING",
+                                                    loadfactor=0.5,
+                                                    cmpfunction=None)
     return data_structs
 
 
@@ -111,6 +115,49 @@ def añadirFecha(fecha_entry, accidente):
     return fecha_entry
 
 
+def añadir_impuesto_por_ca(data_structs, accidente):
+    clases = data_structs["Clase del accidente"]
+    if accidente["CLASE_ACC"] != "":
+        llave = accidente["CLASE_ACC"]
+    llave_existe = mp.contains(clases, llave)
+    if llave_existe:
+        clase = me.getValue(mp.get(clases, llave))
+    else:
+        clase = nuevaClase(llave)
+        mp.put(clases, llave, clase)
+    calles = clase["data"]
+    if accidente["DIRECCION"] != "":
+        llave2 = arreglarcalle(accidente["DIRECCION"])
+    llave2_existe = mp.contains(calles, llave2)
+    if llave2_existe:
+        calle = me.getValue(mp.get(calles, llave2))
+    else:
+        calle = nuevaCalle(llave2)
+        mp.put(calles, llave2, calle)
+    lt.addLast(calle["data"], accidente)
+    
+
+def arreglarcalle(calle):
+    calle = calle.replace(" ", "")
+    num_str = calle.find("-")
+    calle = calle[0:num_str]
+    return calle
+
+
+def nuevaCalle(calle1):
+    calle = {"calle": "", "data": None}
+    calle["calle"] = calle1
+    calle["data"] = lt.newList("ARRAY_LIST", cmpreq1)
+    return calle
+
+
+def nuevaClase(clase1):
+    clase = {"clase": "", "data": None}
+    clase["clase"] = clase1
+    clase["data"] = mp.newMap(30, maptype="CHAINING", loadfactor=0.5,cmpfunction=None)
+    return clase
+
+
 
 
 # Funciones para creacion de datos
@@ -131,6 +178,10 @@ def primerosTres(data):
 
 def ultimosTres(data):
     datos = lt.subList(data, lt.size(data) -2, 3)
+    return datos
+
+def primerosCinco(data):
+    datos = lt.subList(data, 1, 5)
     return datos
 
 def get_data(data_structs, id):
@@ -184,20 +235,39 @@ def req_2(data_structs, horaInicial, horaFinal, mes, año):
     
 
 
-def req_3(data_structs):
-    """
-    Función que soluciona el requerimiento 3
-    """
-    # TODO: Realizar el requerimiento 3
-    pass
+def req_3(data_structs, clase, calle):
+    mapa = data_structs["Clase del accidente"]
+    clase = clase.upper()
+    calle = calle.replace(" ", "")
+    calle = calle.upper()
+    print(calle)
+    hash = me.getValue(mp.get(mapa, clase))
+    print(hash)
+    lista = me.getValue(mp.get(hash["data"], calle))
+    lista = lista["data"]
+    lista = merg.sort(lista, cmpreq1)
+    finalList = primerosTres(lista)
+    return lista, finalList
+    
 
 
-def req_4(data_structs):
+def req_4(data_structs, fechaInicial, fechaFinal, gravedad):
     """
     Función que soluciona el requerimiento 4
     """
     # TODO: Realizar el requerimiento 4
-    pass
+    finalList = lt.newList("ARRAY_LIST")
+    mapa = data_structs["Fecha"]
+    rango = om.values(mapa, fechaInicial, fechaFinal)
+    for fechas in lt.iterator(rango):
+        for i in lt.iterator(fechas["lstaccidentes"]):
+            if str(i["GRAVEDAD"]) == gravedad:
+                respuesta = i
+                lt.addLast(finalList, respuesta)
+    merg.sort(finalList, cmpreq1)
+    subList = primerosCinco(finalList)
+    return subList, finalList
+    
 
 
 def req_5(data_structs):

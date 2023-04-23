@@ -109,20 +109,26 @@ def req_2(control, horaInicial, horaFinal, mes, año):
     
 
 
-def req_3(control):
+def req_3(control, clase, calle):
     """
     Retorna el resultado del requerimiento 3
     """
     # TODO: Modificar el requerimiento 3
-    pass
+    return model.req_3(control, clase, calle)
+    
+    
 
 
-def req_4(control):
+def req_4(control, fechaInicial, fechaFinal, gravedad):
     """
     Retorna el resultado del requerimiento 4
     """
     # TODO: Modificar el requerimiento 4
-    pass
+    fechaInicial = datetime.datetime.strptime(fechaInicial, "%Y/%m/%d")
+    fechaFinal = datetime.datetime.strptime(fechaFinal, "%Y/%m/%d")
+    subList, finalList = model.req_4(control, fechaInicial.date(), fechaFinal.date(), gravedad)
+    return subList, finalList
+    
 
 
 def req_5(control):

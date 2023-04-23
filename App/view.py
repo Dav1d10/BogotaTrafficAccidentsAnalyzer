@@ -165,20 +165,65 @@ def print_req_2(control, horaInicial, horaFinal, mes, año):
     
 
 
-def print_req_3(control):
+def print_req_3(control, clase, calle):
     """
         Función que imprime la solución del Requerimiento 3 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 3
-    pass
+    lista, finalList = controller.req_3(control, clase, calle)
+    size = lt.size(finalList)
+    size2 = lt.size(lista)
+    print("Hay " + str(size2) + " accidentes de clase " + clase + " registrados en la via " + calle)
+    print("Estos son los " + str(size) + " accidentes más recientes: ")
+    
+    if size:
+        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        table = []
+        for dato in lt.iterator(finalList):
+            table.append([dato["CODIGO_ACCIDENTE"],
+                        dato["DIA_OCURRENCIA_ACC"],
+                        dato["DIRECCION"],
+                        dato["GRAVEDAD"],
+                        dato["LOCALIDAD"],
+                        dato["FECHA_HORA_ACC"],
+                        dato["LATITUD"],
+                        dato["LONGITUD"]])         
+        print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
+        print('\n')
+    else:
+        print("No se encontraron datos")
+    
 
 
-def print_req_4(control):
+def print_req_4(control, fechaInicial, fechaFinal, gravedad):
     """
         Función que imprime la solución del Requerimiento 4 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 4
-    pass
+    subList, finalList = controller.req_4(control, fechaInicial, fechaFinal, gravedad)
+    size = lt.size(subList)
+    size2 = lt.size(finalList)
+    print("Hay " + str(size2) + " accidentes de gravedad " + gravedad + " registrados entre " + fechaInicial + " y " + fechaFinal)
+    print("Estos son los " + str(size) + " accidentes más recientes: ")
+    
+    if size:
+        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        table = []
+        for dato in lt.iterator(subList):
+            table.append([dato["CODIGO_ACCIDENTE"],
+                        dato["DIA_OCURRENCIA_ACC"],
+                        dato["DIRECCION"],
+                        dato["GRAVEDAD"],
+                        dato["CLASE_ACC"],
+                        dato["LOCALIDAD"],
+                        dato["FECHA_HORA_ACC"],
+                        dato["LATITUD"],
+                        dato["LONGITUD"]])         
+        print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
+        print('\n')
+    else:
+        print("No se encontraron datos")
+    
 
 
 def print_req_5(control):
@@ -278,10 +323,15 @@ if __name__ == "__main__":
                 print(print_req_2(control, horaInicial, horaFinal, mes, año))
 
             elif int(inputs) == 4:
-                print_req_3(control)
+                clase = str(input("Ingrese la clase del accidente: "))
+                calle = str(input("Ingrese la calle del accidente: "))
+                print(print_req_3(control, clase, calle))
 
             elif int(inputs) == 5:
-                print_req_4(control)
+                fechaInicial = str(input("Ingrese la fecha inicial: "))
+                fechaFinal = str(input("Ingrese la fecha final: "))
+                gravedad = str(input("Ingrese la gravedad del accidente: "))
+                print(print_req_4(control, fechaInicial, fechaFinal, gravedad))
 
             elif int(inputs) == 6:
                 print_req_5(control)
