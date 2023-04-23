@@ -56,7 +56,7 @@ def new_data_structs():
     data_structs["Accidente"] = lt.newList("ARRAY_LIST")
 
     data_structs["Fecha"] = om.newMap(omaptype="RBT", 
-                                      comparefunction=compararFechas)
+                                      comparefunction=None)
     return data_structs
 
 
@@ -138,7 +138,9 @@ def req_1(data_structs, fechaInicial, fechaFinal):
     mapa = data_structs["Fecha"]
     rango = om.values(mapa, fechaInicial, fechaFinal)
     for fechas in lt.iterator(rango):
-        lt.addLast(finalList, fechas["lstaccidentes"])
+        for i in lt.iterator(fechas["lstaccidentes"]):
+            lt.addLast(finalList, i)
+    merg.sort(finalList, cmpreq1)
     return finalList
     
 
@@ -148,6 +150,7 @@ def req_2(data_structs):
     Función que soluciona el requerimiento 2
     """
     # TODO: Realizar el requerimiento 2
+    
     pass
 
 
@@ -211,6 +214,16 @@ def compararFechas(fecha1, fecha2):
         return 1
     else:
         return -1
+    
+    
+def cmpreq1(fecha1, fecha2):
+    if datetime.datetime.strptime(fecha1["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00") == datetime.datetime.strptime(fecha2["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00"):
+        return 0
+    elif datetime.datetime.strptime(fecha1["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00") > datetime.datetime.strptime(fecha2["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00"):
+        return 1
+    else:
+        return 0
+    
 
 # Funciones de ordenamiento
 

@@ -116,16 +116,15 @@ def print_req_1(control, fechaInicial, fechaFinal):
         headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
         table = []
         for dato in lt.iterator(datos):
-            for accidente in lt.iterator(dato):
-                table.append([accidente["CODIGO_ACCIDENTE"],
-                            accidente["DIA_OCURRENCIA_ACC"],
-                            accidente["DIRECCION"],
-                            accidente["GRAVEDAD"],
-                            accidente["CLASE_ACC"],
-                            accidente["LOCALIDAD"],
-                            accidente["FECHA_HORA_ACC"],
-                            accidente["LATITUD"],
-                            accidente["LONGITUD"],])         
+            table.append([dato["CODIGO_ACCIDENTE"],
+                        dato["DIA_OCURRENCIA_ACC"],
+                        dato["DIRECCION"],
+                        dato["GRAVEDAD"],
+                        dato["CLASE_ACC"],
+                        dato["LOCALIDAD"],
+                        dato["FECHA_HORA_ACC"],
+                        dato["LATITUD"],
+                        dato["LONGITUD"]])         
         print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
         print('\n')
     else:
