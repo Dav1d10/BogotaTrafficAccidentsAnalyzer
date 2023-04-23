@@ -112,6 +112,8 @@ def print_req_1(control, fechaInicial, fechaFinal):
     # TODO: Imprimir el resultado del requerimiento 1
     datos = controller.req_1(control, fechaInicial, fechaFinal)
     size = lt.size(datos)
+    print("Hay " + str(size) + " accidentes registrados entre " + fechaInicial + " y " + fechaFinal)
+    
     if size:
         headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
         table = []
@@ -138,7 +140,28 @@ def print_req_2(control, horaInicial, horaFinal, mes, año):
     """
     # TODO: Imprimir el resultado del requerimiento 2
     datos = controller.req_2(control, horaInicial, horaFinal, mes, año)
-    return datos
+    size = lt.size(datos)
+    print("Hay " + str(size) + " accidentes registrados entre " + horaInicial + " y " + horaFinal + " de todos los días del mes de " + mes + " de " + año)
+    
+    if size:
+        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        table = []
+        for dato in lt.iterator(datos):
+            table.append([dato["CODIGO_ACCIDENTE"],
+                        dato["DIA_OCURRENCIA_ACC"],
+                        dato["DIRECCION"],
+                        dato["GRAVEDAD"],
+                        dato["CLASE_ACC"],
+                        dato["LOCALIDAD"],
+                        dato["FECHA_HORA_ACC"],
+                        dato["LATITUD"],
+                        dato["LONGITUD"]])         
+        print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
+        print('\n')
+    else:
+        print("No se encontraron datos")
+        
+    
     
 
 
@@ -235,7 +258,7 @@ if __name__ == "__main__":
                 print("--------------------------------------------------------------------") 
                 print("Cargando información de los archivos ....\n")
                 data = load_data(control, filename)
-                print(data)
+                #print(data)
                 primeros_tres = controller.primerosTres(data["Accidente"])
                 ultimos_tres = controller.ultimosTres(data["Accidente"])
                 print("Los primeros tres registros de accidentes cargados fueron: ")

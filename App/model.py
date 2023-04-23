@@ -56,10 +56,10 @@ def new_data_structs():
     data_structs["Accidente"] = lt.newList("ARRAY_LIST")
 
     data_structs["Fecha"] = om.newMap(omaptype="RBT", 
-                                      comparefunction=None)
+                                      comparefunction=compararFechas)
     
     data_structs["Hora"] = om.newMap(omaptype="RBT", 
-                                      comparefunction=None)
+                                      comparefunction=compararFechas)
     return data_structs
 
 
@@ -89,10 +89,10 @@ def actualizarFecha(mapa, accidente):
 def actualizarHora(mapa, accidente):
     hora = accidente["HORA_OCURRENCIA_ACC"]
     horaAccidente = datetime.datetime.strptime(hora, "%H:%M:%S")
-    entry = om.get(mapa, horaAccidente.date())
+    entry = om.get(mapa, horaAccidente.time())
     if entry is None:
         hora_entry = nuevaEntrada()
-        om.put(mapa, horaAccidente.date(), hora_entry)
+        om.put(mapa, horaAccidente.time(), hora_entry)
     else:
         hora_entry = me.getValue(entry)
     añadirFecha(hora_entry, accidente)
@@ -109,6 +109,9 @@ def añadirFecha(fecha_entry, accidente):
     lst = fecha_entry["lstaccidentes"]
     lt.addLast(lst, accidente)
     return fecha_entry
+
+
+
 
 # Funciones para creacion de datos
 

@@ -104,7 +104,7 @@ def req_2(control, horaInicial, horaFinal, mes, año):
     # TODO: Modificar el requerimiento 2
     horaInicial = datetime.datetime.strptime(horaInicial, "%H:%M:%S")
     horaFinal = datetime.datetime.strptime(horaFinal, "%H:%M:%S")
-    accidente = model.req_2(control, horaInicial.date(), horaFinal.date(), mes, año)
+    accidente = model.req_2(control, horaInicial.time(), horaFinal.time(), mes, año)
     return accidente
     
 
