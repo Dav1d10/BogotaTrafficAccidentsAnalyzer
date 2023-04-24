@@ -226,12 +226,14 @@ def print_req_4(control, fechaInicial, fechaFinal, gravedad):
     
 
 
-def print_req_5(control):
+def print_req_5(control, localidad, mes, año):
     """
         Función que imprime la solución del Requerimiento 5 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 5
-    pass
+    finalList = controller.req_5(control, localidad, mes, año)
+    return finalList
+    
 
 
 def print_req_6(control):
@@ -334,7 +336,10 @@ if __name__ == "__main__":
                 print(print_req_4(control, fechaInicial, fechaFinal, gravedad))
 
             elif int(inputs) == 6:
-                print_req_5(control)
+                localidad = str(input("Ingrese la localidad del accidente: "))
+                mes = str(input("Ingrese el mes del accidente: "))
+                año = str(input("Ingrese el año del accidente: "))
+                print(print_req_5(control, localidad, mes, año))
 
             elif int(inputs) == 7:
                 print_req_6(control)

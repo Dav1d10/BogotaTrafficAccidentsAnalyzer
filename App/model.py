@@ -240,9 +240,7 @@ def req_3(data_structs, clase, calle):
     clase = clase.upper()
     calle = calle.replace(" ", "")
     calle = calle.upper()
-    print(calle)
     hash = me.getValue(mp.get(mapa, clase))
-    print(hash)
     lista = me.getValue(mp.get(hash["data"], calle))
     lista = lista["data"]
     lista = merg.sort(lista, cmpreq1)
@@ -270,12 +268,23 @@ def req_4(data_structs, fechaInicial, fechaFinal, gravedad):
     
 
 
-def req_5(data_structs):
+def req_5(data_structs, localidad, mes, año):
     """
     Función que soluciona el requerimiento 5
     """
     # TODO: Realizar el requerimiento 5
-    pass
+    finalList = lt.newList("ARRAY_LIST")
+    lista = data_structs["Accidente"]
+    for fechas in lt.iterator(lista):
+        if str(fechas["LOCALIDAD"]) == localidad:
+            if str(fechas["MES_OCURRENCIA_ACC"]) == mes:
+                if str(fechas["ANO_OCURRENCIA_ACC"]) == año:
+                    respuesta = fechas
+                    lt.addLast(finalList, respuesta)
+    merg.sort(finalList, cmpreq1)
+    return finalList
+                    
+        
 
 
 def req_6(data_structs):

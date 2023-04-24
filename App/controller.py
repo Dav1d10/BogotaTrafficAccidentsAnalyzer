@@ -54,6 +54,7 @@ def load_data(control, filename):
     input_file = csv.DictReader(open(dianfile, encoding='utf-8'), delimiter=",")
     for accidente in input_file:
         model.añadir_accidente(control, accidente)
+        model.añadir_impuesto_por_ca(control, accidente)
     return control
 
 
@@ -131,12 +132,13 @@ def req_4(control, fechaInicial, fechaFinal, gravedad):
     
 
 
-def req_5(control):
+def req_5(control, localidad, mes, año):
     """
     Retorna el resultado del requerimiento 5
     """
     # TODO: Modificar el requerimiento 5
-    pass
+    return model.req_5(control, localidad, mes, año)
+    
 
 def req_6(control):
     """
