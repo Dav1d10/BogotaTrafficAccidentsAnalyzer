@@ -273,6 +273,9 @@ def req_5(data_structs, localidad, mes, año):
     Función que soluciona el requerimiento 5
     """
     # TODO: Realizar el requerimiento 5
+    mes = mes.upper()
+    mes = mes.replace(" ", "")
+    año = año.replace(" ", "")
     finalList = lt.newList("ARRAY_LIST")
     lista = data_structs["Accidente"]
     for fechas in lt.iterator(lista):
@@ -282,7 +285,12 @@ def req_5(data_structs, localidad, mes, año):
                     respuesta = fechas
                     lt.addLast(finalList, respuesta)
     merg.sort(finalList, cmpreq1)
-    return finalList
+    size = lt.size(finalList)
+    if size > 10:
+        subList = lt.subList(finalList, size - 9, 10)
+    else:
+        subList = finalList
+    return finalList, subList
                     
         
 
