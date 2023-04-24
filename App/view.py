@@ -170,9 +170,8 @@ def print_req_3(control, clase, calle):
         Función que imprime la solución del Requerimiento 3 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 3
-    lista, finalList = controller.req_3(control, clase, calle)
+    size2, finalList = controller.req_3(control, clase, calle)
     size = lt.size(finalList)
-    size2 = lt.size(lista)
     print("Hay " + str(size2) + " accidentes de clase " + clase + " registrados en la via " + calle)
     print("Estos son los " + str(size) + " accidentes más recientes: ")
     
@@ -237,12 +236,27 @@ def print_req_5(control, localidad, mes, año):
     
 
 
-def print_req_6(control):
-    """
-        Función que imprime la solución del Requerimiento 6 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 6
-    pass
+def print_req_6(control, mes, año, latitud, longitud, radio, num_acc):
+    datos = controller.req_6(control, mes, año, latitud, longitud, radio, num_acc)
+    size = lt.size(datos)
+    print("Los " + str(num_acc) + " accidentes mas cercanos al punto (" + str(latitud) + ","+ str(longitud) + ") dentro de un radio de "+ str(radio) + " para el mes de " + str(mes) +  "de" + str("año") )
+    
+    if size:
+        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        table = []
+        for dato in lt.iterator(datos):
+            table.append([dato["CODIGO_ACCIDENTE"],
+                        dato["DIA_OCURRENCIA_ACC"],
+                        dato["DIRECCION"],
+                        dato["GRAVEDAD"],
+                        dato["CLASE_ACC"],
+                        dato["FECHA_HORA_ACC"],
+                        dato["LATITUD"],
+                        dato["LONGITUD"]])         
+        print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
+        print('\n')
+    else:
+        print("No se encontraron datos")
 
 
 def print_req_7(control):
@@ -343,7 +357,14 @@ if __name__ == "__main__":
                 print(print_req_5(control, localidad, mes, año))
 
             elif int(inputs) == 7:
-                print_req_6(control)
+                mes = str(input("Ingrese el mes: "))
+                año = str(input("Ingrese el año: "))
+                latitud = float(input("Ingrese la latitud: "))
+                longitud = float(input("Ingrese la longitud: "))
+                radio = float(input("Ingrese el radio: "))
+                num_acc = int(input("Ingrese el numero de accidentes que quiere conocer: "))
+                print_req_6(control, mes, año, latitud, longitud, radio, num_acc)
+                print_req_6(control, mes, año, latitud, longitud, radio, num_acc)
 
             elif int(inputs) == 8:
                 print_req_7(control)

@@ -39,6 +39,7 @@ from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import selectionsort as se
 from DISClib.Algorithms.Sorting import mergesort as merg
 from DISClib.Algorithms.Sorting import quicksort as quk
+from math import radians, cos, sin, asin, sqrt
 import datetime
 assert cf
 
@@ -237,15 +238,16 @@ def req_2(data_structs, horaInicial, horaFinal, mes, año):
 
 def req_3(data_structs, clase, calle):
     mapa = data_structs["Clase del accidente"]
-    clase = clase.upper()
-    calle = calle.replace(" ", "")
-    calle = calle.upper()
     hash = me.getValue(mp.get(mapa, clase))
     lista = me.getValue(mp.get(hash["data"], calle))
     lista = lista["data"]
     lista = merg.sort(lista, cmpreq1)
-    finalList = primerosTres(lista)
-    return lista, finalList
+    size = lt.size(lista)
+    if size > 3:
+        finalList = primerosTres(lista)
+    else:
+        finalList
+    return size, finalList
     
 
 
@@ -263,7 +265,11 @@ def req_4(data_structs, fechaInicial, fechaFinal, gravedad):
                 respuesta = i
                 lt.addLast(finalList, respuesta)
     merg.sort(finalList, cmpreq1)
-    subList = primerosCinco(finalList)
+    size =lt.size(finalList)
+    if size > 5:
+        subList = primerosCinco(finalList)
+    else:
+        subList = finalList
     return subList, finalList
     
 
@@ -273,6 +279,8 @@ def req_5(data_structs, localidad, mes, año):
     Función que soluciona el requerimiento 5
     """
     # TODO: Realizar el requerimiento 5
+    localidad = localidad.upper()
+    localidad = localidad.replace(" ", "")
     mes = mes.upper()
     mes = mes.replace(" ", "")
     año = año.replace(" ", "")
@@ -295,12 +303,42 @@ def req_5(data_structs, localidad, mes, año):
         
 
 
-def req_6(data_structs):
-    """
-    Función que soluciona el requerimiento 6
-    """
-    # TODO: Realizar el requerimiento 6
-    pass
+def req_6(data_structs, mes, año, latitud1, longitud1, radio, num_acc):
+    mapa = data_structs["Fecha"]
+    min_año = datetime.datetime(2015,1,1)
+    max_año = datetime.datetime(2022,12,31)
+    rango = om.values(mapa, min_año.date(), max_año.date())
+    finalList = lt.newList("ARRAY_LIST")
+    for fechas in lt.iterator(rango):
+        for i in lt.iterator(fechas["lstaccidentes"]):
+            if str(i["ANO_OCURRENCIA_ACC"]) == año and str(i["MES_OCURRENCIA_ACC"]) == mes:
+                latitud = float(i["LATITUD"])
+                longitud = float(i["LONGITUD"])
+                distancia = haversine(longitud, latitud, longitud1, latitud1)
+                if distancia <= radio:
+                    i["DISTANCIA"] = distancia
+                    lt.addLast(finalList, i)
+    size = lt.size(finalList)
+    finalList = merg.sort(finalList, compararDistancia)
+    if size > num_acc:
+        finalList = lt.subList(finalList, 1, num_acc)
+    else:
+        finalList = finalList
+    return finalList
+                
+    
+    
+def haversine(longitud1, latitud1, longitud2, latitud2):
+    longitud1 = radians(longitud1)
+    longitud2 = radians(longitud2)
+    latitud1 = radians(latitud1)
+    latitud2 = radians(latitud2)
+    dlon = longitud2 - longitud1
+    dlat = latitud2 - latitud1
+    a = sin(dlat/2)**2 + cos(latitud1) * cos(latitud2) * sin((dlon/2)**2)
+    c = 2 * sin(sqrt(sin((dlat/2)**2) + cos(latitud1) * cos(latitud2) * sin((dlon/2)**2))) 
+    r = 6371
+    return c * r
 
 
 def req_7(data_structs):
@@ -340,7 +378,11 @@ def cmpreq1(fecha1, fecha2):
         return 1
     else:
         return 0
-    
+def compararDistancia(distancia1, distancia2):
+    if distancia1["DISTANCIA"] < distancia2["DISTANCIA"]:
+        return 1
+    else:
+        return 0
 
 # Funciones de ordenamiento
 

@@ -103,6 +103,9 @@ def req_2(control, horaInicial, horaFinal, mes, año):
     Retorna el resultado del requerimiento 2
     """
     # TODO: Modificar el requerimiento 2
+    mes = mes.upper()
+    mes = mes.replace(" ", "")
+    año = año.replace(" ", "")
     horaInicial = datetime.datetime.strptime(horaInicial, "%H:%M:%S")
     horaFinal = datetime.datetime.strptime(horaFinal, "%H:%M:%S")
     accidente = model.req_2(control, horaInicial.time(), horaFinal.time(), mes, año)
@@ -115,6 +118,9 @@ def req_3(control, clase, calle):
     Retorna el resultado del requerimiento 3
     """
     # TODO: Modificar el requerimiento 3
+    clase = clase.upper()
+    calle = calle.replace(" ", "")
+    calle = calle.upper()
     return model.req_3(control, clase, calle)
     
     
@@ -125,6 +131,8 @@ def req_4(control, fechaInicial, fechaFinal, gravedad):
     Retorna el resultado del requerimiento 4
     """
     # TODO: Modificar el requerimiento 4
+    gravedad = gravedad.upper()
+    gravedad = gravedad.replace(" ", "")
     fechaInicial = datetime.datetime.strptime(fechaInicial, "%Y/%m/%d")
     fechaFinal = datetime.datetime.strptime(fechaFinal, "%Y/%m/%d")
     subList, finalList = model.req_4(control, fechaInicial.date(), fechaFinal.date(), gravedad)
@@ -133,19 +141,22 @@ def req_4(control, fechaInicial, fechaFinal, gravedad):
 
 
 def req_5(control, localidad, mes, año):
-    """
-    Retorna el resultado del requerimiento 5
-    """
-    # TODO: Modificar el requerimiento 5
+    localidad = localidad.upper()
+    localidad = localidad.replace(" ", "")
+    mes = mes.upper()
+    mes = mes.replace(" ", "")
+    año = año.replace(" ", "")
     return model.req_5(control, localidad, mes, año)
     
 
-def req_6(control):
+def req_6(control, mes, año, latitud, longitud, radio, num_acc):
     """
     Retorna el resultado del requerimiento 6
     """
-    # TODO: Modificar el requerimiento 6
-    pass
+    mes = mes.upper()
+    mes = mes.replace(" ", "")
+    año = año.replace(" ", "")
+    return model.req_6(control, mes, año, latitud, longitud, radio, num_acc)
 
 
 def req_7(control):
