@@ -231,8 +231,9 @@ def print_req_5(control, localidad, mes, año):
         Función que imprime la solución del Requerimiento 5 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 5
-    finalList = controller.req_5(control, localidad, mes, año)
-    return finalList
+    datos = controller.req_5(control, localidad, mes, año)
+    return datos 
+    
     
 
 
