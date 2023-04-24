@@ -132,7 +132,6 @@ def req_4(control, fechaInicial, fechaFinal, gravedad):
     """
     # TODO: Modificar el requerimiento 4
     gravedad = gravedad.upper()
-    gravedad = gravedad.replace(" ", "")
     fechaInicial = datetime.datetime.strptime(fechaInicial, "%Y/%m/%d")
     fechaFinal = datetime.datetime.strptime(fechaFinal, "%Y/%m/%d")
     subList, finalList = model.req_4(control, fechaInicial.date(), fechaFinal.date(), gravedad)
