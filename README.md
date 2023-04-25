@@ -32,8 +32,8 @@ This repository is part of the data structure and algorithms (#EDA) teaching fra
 
 The students edit this section to add their names, Uniandes emails, and specify which project functionality of the project they will implement.
 
-1. David Caro, d.carol@uniandes.edu.co, 202222073, req3
-2. Alejandro Abril, d.abrilm@uniandes.edu.co, 202224328, req4
+1. David Caro, d.carol@uniandes.edu.co, 202222073, req4
+2. Alejandro Abril, d.abrilm@uniandes.edu.co, 202224328, req3
 3. Gabriel Martinez, gl.martinez@uniandes.edu.co, 202214559, req5
 
 [Back to top](#challenge-template)

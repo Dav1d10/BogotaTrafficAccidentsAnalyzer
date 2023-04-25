@@ -269,12 +269,12 @@ def print_req_7(control, mes, año):
     
 
 
-def print_req_8(control, fechaInicial, fechaFinal):
+def print_req_8(control, fechaInicial, fechaFinal, clase):
     """
         Función que imprime la solución del Requerimiento 8 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 8
-    datos = controller.req_8(control, fechaInicial, fechaFinal)
+    datos = controller.req_8(control, fechaInicial, fechaFinal, clase)
     return datos 
     
 
@@ -378,7 +378,8 @@ if __name__ == "__main__":
             elif int(inputs) == 9:
                 fechaInicial = str(input("Ingrese la fecha inicial: "))
                 fechaFinal = str(input("Ingrese la fecha final: "))
-                print(print_req_8(control, fechaInicial, fechaFinal))
+                clase = str(input("Ingrese la clase del accidente: "))
+                print(print_req_8(control, fechaInicial, fechaFinal, clase))
 
             elif int(inputs) == 0:
                 working = False
