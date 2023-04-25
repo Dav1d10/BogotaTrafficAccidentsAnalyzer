@@ -167,12 +167,16 @@ def req_7(control, mes, año):
     
 
 
-def req_8(control):
+def req_8(control, fechaInicial, fechaFinal):
     """
     Retorna el resultado del requerimiento 8
     """
     # TODO: Modificar el requerimiento 8
-    pass
+    fechaInicial = datetime.datetime.strptime(fechaInicial, "%Y/%m/%d")
+    fechaFinal = datetime.datetime.strptime(fechaFinal, "%Y/%m/%d")
+    accidente = model.req_8(control, fechaFinal.date(), fechaFinal.date())
+    return accidente
+    
 
 
 # Funciones para medir tiempos de ejecucion

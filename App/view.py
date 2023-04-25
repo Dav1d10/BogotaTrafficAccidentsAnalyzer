@@ -269,12 +269,14 @@ def print_req_7(control, mes, año):
     
 
 
-def print_req_8(control):
+def print_req_8(control, fechaInicial, fechaFinal):
     """
         Función que imprime la solución del Requerimiento 8 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 8
-    pass
+    datos = controller.req_8(control, fechaInicial, fechaFinal)
+    return datos 
+    
 
 
 # Se crea el controlador asociado a la vista
@@ -374,7 +376,9 @@ if __name__ == "__main__":
                 print(print_req_7(control, mes, año))
 
             elif int(inputs) == 9:
-                print_req_8(control)
+                fechaInicial = str(input("Ingrese la fecha inicial: "))
+                fechaFinal = str(input("Ingrese la fecha final: "))
+                print(print_req_8(control, fechaInicial, fechaFinal))
 
             elif int(inputs) == 0:
                 working = False

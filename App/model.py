@@ -373,12 +373,20 @@ def req_7(data_structs, mes, año):
     
 
 
-def req_8(data_structs):
+def req_8(data_structs, fechaInicial, fechaFinal):
     """
     Función que soluciona el requerimiento 8
     """
     # TODO: Realizar el requerimiento 8
-    pass
+    finalList = lt.newlist("ARRAY_LIST")
+    mapa = data_structs["Fecha"]
+    rango = om.put(mapa, fechaInicial, fechaFinal)
+    total_accidentes = 0
+    for fechas in lt.iterator(rango):
+        for i in lt.iterator(fechas["lstaccidentes"]):
+            
+    
+    
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
