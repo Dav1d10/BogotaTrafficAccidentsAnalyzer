@@ -259,12 +259,14 @@ def print_req_6(control, mes, año, latitud, longitud, radio, num_acc):
         print("No se encontraron datos")
 
 
-def print_req_7(control):
+def print_req_7(control, mes, año):
     """
         Función que imprime la solución del Requerimiento 7 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 7
-    pass
+    datos = controller.req_7(control, mes, año)
+    return datos
+    
 
 
 def print_req_8(control):
@@ -367,7 +369,9 @@ if __name__ == "__main__":
                 print_req_6(control, mes, año, latitud, longitud, radio, num_acc)
 
             elif int(inputs) == 8:
-                print_req_7(control)
+                mes = str(input("Ingrese el mes: "))
+                año = str(input("Ingrese el año: "))
+                print(print_req_7(control, mes, año))
 
             elif int(inputs) == 9:
                 print_req_8(control)

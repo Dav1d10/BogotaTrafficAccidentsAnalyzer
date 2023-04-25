@@ -341,12 +341,36 @@ def haversine(longitud1, latitud1, longitud2, latitud2):
     return c * r
 
 
-def req_7(data_structs):
+def req_7(data_structs, mes, año):
     """
     Función que soluciona el requerimiento 7
     """
     # TODO: Realizar el requerimiento 7
-    pass
+    finalList = lt.newList("ARRAY_LIST")
+    mapa = data_structs["Fecha"]
+    min_año = datetime.datetime(2015,1,1)
+    max_año = datetime.datetime(2022,12,31)
+    rango = om.values(mapa, min_año.date(), max_año.date())
+    for fechas in lt.iterator(rango):
+        for i in lt.iterator(fechas["lstaccidentes"]):
+            if str(i["MES_OCURRENCIA_ACC"]) == mes and str(i["ANO_OCURRENCIA_ACC"]) == año:
+                respuesta = i
+                lt.addLast(finalList, respuesta)
+    merg.sort(finalList, cmpreq7)
+    subList = lt.newList("ARRAY_LIST")
+    fecha = lt.getElement(finalList, 1)
+    
+    fecha1 = datetime.datetime.strptime(fecha["FECHA_OCURRENCIA_ACC"], "%Y/%m/%d").date()
+    fechaNumero = datetime.timedelta(days = 1)
+   
+    for i in lt.iterator(finalList):
+        if datetime.datetime.strptime(i["FECHA_OCURRENCIA_ACC"], "%Y/%m/%d") == datetime.datetime.strptime(i["FECHA_OCURRENCIA_ACC"], "%Y/%m/%d"):
+            if i["DIA_OCURRENCIA_ACC"] == i["DIA_OCURRENCIA_ACC"]:
+                respuesta = i
+                lt.addLast(subList, i)
+    
+    return subList
+    
 
 
 def req_8(data_structs):
@@ -378,8 +402,19 @@ def cmpreq1(fecha1, fecha2):
         return 1
     else:
         return 0
+    
+    
 def compararDistancia(distancia1, distancia2):
     if distancia1["DISTANCIA"] < distancia2["DISTANCIA"]:
+        return 1
+    else:
+        return 0
+    
+    
+def cmpreq7(fecha1, fecha2):
+    if datetime.datetime.strptime(fecha1["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00") == datetime.datetime.strptime(fecha2["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00"):
+        return 0
+    elif datetime.datetime.strptime(fecha1["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00") < datetime.datetime.strptime(fecha2["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00"):
         return 1
     else:
         return 0

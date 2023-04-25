@@ -158,12 +158,13 @@ def req_6(control, mes, año, latitud, longitud, radio, num_acc):
     return model.req_6(control, mes, año, latitud, longitud, radio, num_acc)
 
 
-def req_7(control):
+def req_7(control, mes, año):
     """
     Retorna el resultado del requerimiento 7
     """
     # TODO: Modificar el requerimiento 7
-    pass
+    return model.req_7(control, mes, año)
+    
 
 
 def req_8(control):
