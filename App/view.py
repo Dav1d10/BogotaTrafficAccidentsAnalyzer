@@ -253,16 +253,15 @@ def print_req_4(control, fechaInicial, fechaFinal, gravedad):
     print("Estos son los " + str(size) + " accidentes más recientes: ")
     
     if size:
-        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        headers = ["CODIGO_ACCIDENTE", "FECHA_HORA_ACC", "DIA_OCURRENCIA_ACC", "LOCALIDAD", "DIRECCION", "CLASE_ACC", "LATITUD", "LONGITUD"]
         table = []
         for dato in lt.iterator(subList):
             table.append([dato["CODIGO_ACCIDENTE"],
-                        dato["DIA_OCURRENCIA_ACC"],
-                        dato["DIRECCION"],
-                        dato["GRAVEDAD"],
-                        dato["CLASE_ACC"],
-                        dato["LOCALIDAD"],
                         dato["FECHA_HORA_ACC"],
+                        dato["DIA_OCURRENCIA_ACC"],
+                        dato["LOCALIDAD"],
+                        dato["DIRECCION"],
+                        dato["CLASE_ACC"],
                         dato["LATITUD"],
                         dato["LONGITUD"]])         
         print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
@@ -281,10 +280,10 @@ def print_req_5(control, localidad, mes, año):
     size = lt.size(subList)
     size2 = lt.size(finalList)
     print("Hay " + str(size2) + " accidentes ocurridos en la localidad de " + localidad + " en el mes " + mes + " del año " + año )
-    print("Estos son los " + str(size) + " accidentes menos recientes: ")
+    print("Estos son los 10 accidentes menos recientes: ")
     
     if size:
-        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
         table = []
         for dato in lt.iterator(subList):
             table.append([dato["CODIGO_ACCIDENTE"],
@@ -292,7 +291,6 @@ def print_req_5(control, localidad, mes, año):
                         dato["DIRECCION"],
                         dato["GRAVEDAD"],
                         dato["CLASE_ACC"],
-                        dato["LOCALIDAD"],
                         dato["FECHA_HORA_ACC"],
                         dato["LATITUD"],
                         dato["LONGITUD"]])         

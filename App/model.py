@@ -297,7 +297,7 @@ def req_5(data_structs, localidad, mes, año):
             if str(i["LOCALIDAD"]) == localidad:
                 if str(i["MES_OCURRENCIA_ACC"]) == mes:
                     if str(i["ANO_OCURRENCIA_ACC"]) == año:
-                        respuesta = fechas
+                        respuesta = i
                         lt.addLast(finalList, respuesta)
     merg.sort(finalList, cmpreq1)
     size = lt.size(finalList)
