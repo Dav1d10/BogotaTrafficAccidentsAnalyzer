@@ -31,6 +31,7 @@ from DISClib.DataStructures import mapentry as me
 assert cf
 from tabulate import tabulate
 import traceback
+import folium
 ...
 default_limit = 1000
 sys.setrecursionlimit(default_limit*10)
@@ -275,7 +276,7 @@ def print_req_8(control, fechaInicial, fechaFinal, clase):
     """
     # TODO: Imprimir el resultado del requerimiento 8
     datos = controller.req_8(control, fechaInicial, fechaFinal, clase)
-    return datos 
+    return datos
     
 
 

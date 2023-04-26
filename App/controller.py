@@ -174,8 +174,8 @@ def req_8(control, fechaInicial, fechaFinal, clase):
     # TODO: Modificar el requerimiento 8
     fechaInicial = datetime.datetime.strptime(fechaInicial, "%d/%m/%Y")
     fechaFinal = datetime.datetime.strptime(fechaFinal, "%d/%m/%Y")
-    accidente = model.req_8(control, fechaInicial.date(), fechaFinal.date(), clase)
-    return accidente
+    return model.req_8(control, fechaInicial.date(), fechaFinal.date(), clase)
+    
     
 
 
