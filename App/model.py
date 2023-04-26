@@ -43,6 +43,7 @@ from math import radians, cos, sin, asin, sqrt
 import datetime
 assert cf
 import folium 
+from folium.plugins import MarkerCluster
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá
@@ -400,15 +401,20 @@ def req_8(data_structs, fechaInicial, fechaFinal, clase):
     total_accidentes += size
     tiles = 'openstreetmap'
     m = folium.Map(location=[4.64230635, -74.06471382], zoom_start=10, tiles=tiles)
+    marker_cluster = MarkerCluster()
     for i in lt.iterator(finalList):
         if i["GRAVEDAD"] == "CON MUERTOS":
             color = "red"
+            popup = 'CON MUERTOS'
         elif i["GRAVEDAD"] == "CON HERIDOS":
             color = "orange"
+            popup = 'CON HERIDOS'
         elif i["GRAVEDAD"] == "SOLO DANOS":
             color = "lightgreen" 
-        marker = folium.Marker(location=[i["LATITUD"], i["LONGITUD"]], popup='Accidente', icon=folium.Icon(color=color))
-        marker.add_to(m)
+            popup = 'SOLO DAÑOS'
+        marker = folium.Marker(location=[i["LATITUD"], i["LONGITUD"]], popup=popup, icon=folium.Icon(color=color))
+        marker.add_to(marker_cluster)
+        marker_cluster.add_to(m)
     m.save("mymap_output.html")
     return total_accidentes, m
     

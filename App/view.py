@@ -185,19 +185,20 @@ def print_req_2(control, horaInicial, horaFinal, mes, año):
     # TODO: Imprimir el resultado del requerimiento 2
     datos = controller.req_2(control, horaInicial, horaFinal, mes, año)
     size = lt.size(datos)
-    print("Hay " + str(size) + " accidentes registrados entre " + horaInicial + " y " + horaFinal + " de todos los días del mes de " + mes + " de " + año)
+    print("Hay " + str(size) + " accidentes en el intervalo de horas dado " + horaInicial + " y " + horaFinal + " en el año " + año + " y en el mes " + mes)
     
     if size:
-        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        headers = ["CODIGO_ACCIDENTE", "HORA_OCURRENCIA_ACC", "FECHA_OCURRENCIA_ACC" , "DIA_OCURRENCIA_ACC", "LOCALIDAD", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "LATITUD", "LONGITUD"]
         table = []
         for dato in lt.iterator(datos):
             table.append([dato["CODIGO_ACCIDENTE"],
+                        dato["HORA_OCURRENCIA_ACC"],
+                        dato["FECHA_OCURRENCIA_ACC"],
                         dato["DIA_OCURRENCIA_ACC"],
+                        dato["LOCALIDAD"],
                         dato["DIRECCION"],
                         dato["GRAVEDAD"],
                         dato["CLASE_ACC"],
-                        dato["LOCALIDAD"],
-                        dato["FECHA_HORA_ACC"],
                         dato["LATITUD"],
                         dato["LONGITUD"]])         
         print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
