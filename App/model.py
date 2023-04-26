@@ -77,6 +77,7 @@ def añadir_accidente(data_structs, accidente):
     lt.addLast(data_structs["Accidente"], accidente)
     actualizarFecha(data_structs["Fecha"], accidente)
     actualizarHora(data_structs["Hora"], accidente)
+    añadir_impuesto_por_ca(data_structs, accidente)
     return data_structs
 
 
@@ -382,8 +383,27 @@ def req_7(data_structs, mes, año):
             mp.put(finalMap, fecha, subList)
         fecha1 += fechaNumero
         fecha += 1
-    return finalMap
-    
+    diccionario_grafica = {"00:00:00": 0,"01:00:00": 0,
+                           "02:00:00": 0,"03:00:00": 0,
+                           "04:00:00": 0,"05:00:00": 0,
+                           "06:00:00": 0,"07:00:00": 0,
+                           "08:00:00": 0,"09:00:00": 0,
+                           "10:00:00": 0,"11:00:00": 0,
+                           "12:00:00": 0,"13:00:00": 0,
+                           "14:00:00": 0,"15:00:00": 0,
+                           "16:00:00": 0,"17:00:00": 0,
+                           "18:00:00": 0,"19:00:00": 0,
+                           "20:00:00": 0,"21:00:00": 0,
+                           "22:00:00": 0,"23:00:00": 0}
+    for i in lt.iterator(finalList):
+        hora = i["HORA_OCURRENCIA_ACC"]
+        
+        if len(hora) == 7:
+            hora = "0" + hora
+        hora = hora[0:2]
+        hora = hora + ":00:00"
+        diccionario_grafica[hora] += 1
+    return finalMap, diccionario_grafica
 
 
 def req_8(data_structs, fechaInicial, fechaFinal, clase):

@@ -54,7 +54,6 @@ def load_data(control, filename):
     input_file = csv.DictReader(open(dianfile, encoding='utf-8'), delimiter=",")
     for accidente in input_file:
         model.añadir_accidente(control, accidente)
-        model.añadir_impuesto_por_ca(control, accidente)
     return control
 
 

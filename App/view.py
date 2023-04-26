@@ -32,6 +32,7 @@ assert cf
 from tabulate import tabulate
 import traceback
 import folium
+from matplotlib import pyplot as plt
 ...
 default_limit = 1000
 sys.setrecursionlimit(default_limit*10)
@@ -221,15 +222,16 @@ def print_req_3(control, clase, calle):
     print("Estos son los " + str(size) + " accidentes más recientes: ")
     
     if size:
-        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "LOCALIDAD", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        headers = ["CODIGO_ACCIDENTE","FECHA_HORA_ACC", "DIA_OCURRENCIA_ACC","LOCALIDAD", "DIRECCION", "GRAVEDAD", "CLASE_ACC",   "LATITUD", "LONGITUD"]
         table = []
         for dato in lt.iterator(finalList):
             table.append([dato["CODIGO_ACCIDENTE"],
+                        dato["FECHA_HORA_ACC"],
                         dato["DIA_OCURRENCIA_ACC"],
+                        dato["LOCALIDAD"],
                         dato["DIRECCION"],
                         dato["GRAVEDAD"],
-                        dato["LOCALIDAD"],
-                        dato["FECHA_HORA_ACC"],
+                        dato["CLASE_ACC"],
                         dato["LATITUD"],
                         dato["LONGITUD"]])         
         print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
@@ -331,7 +333,7 @@ def print_req_7(control, mes, año):
         Función que imprime la solución del Requerimiento 7 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 7
-    datos = controller.req_7(control, mes, año)
+    datos, diccionario_grafica = controller.req_7(control, mes, año)
     print("Accidentes mas tempranos y tardios para el mes " + mes + " de " + año)
     print('\n')
     for i in range(1, 32):
@@ -339,11 +341,18 @@ def print_req_7(control, mes, año):
         print('\n')
         try:
             tabla = me.getValue(mp.get(datos, i))
-            tabulate_req7(tabla)
+            #tabulate_req7(tabla)
         except TypeError:
             print("No hay ningun accidente en dicha fecha")
+    labels = list(diccionario_grafica.keys())
+    frequencies = list(diccionario_grafica.values())
+    fig, ax = plt.subplots()
+    ax.bar(labels, frequencies, width = 1, align = "center")
+    ax.set_xlabel("Datos")
+    ax.set_title("Histograma de frecuencias")
+    plt.ion()
+    plt.show()
     return datos
-    
 
 
 def print_req_8(control, fechaInicial, fechaFinal, clase):
