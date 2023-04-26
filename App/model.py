@@ -54,7 +54,7 @@ dos listas, una para los videos, otra para las categorias de los mismos.
 
 
 def new_data_structs():
-    data_structs = {"Accidente": None, "Fecha": None}
+    data_structs = {"Accidente": None, "Fecha": None, "Hora": None, "Clase": None}
 
     data_structs["Accidente"] = lt.newList("ARRAY_LIST")
 
@@ -187,6 +187,10 @@ def primerosCinco(data):
     datos = lt.subList(data, 1, 5)
     return datos
 
+def ultimosDiez(data):
+    datos = lt.subList(data, lt.size(data) - 9, 10)
+    return datos
+
 def get_data(data_structs, id):
     """
     Retorna un dato a partir de su ID
@@ -282,23 +286,22 @@ def req_5(data_structs, localidad, mes, año):
     Función que soluciona el requerimiento 5
     """
     # TODO: Realizar el requerimiento 5
-    localidad = localidad.upper()
-    localidad = localidad.replace(" ", "")
-    mes = mes.upper()
-    mes = mes.replace(" ", "")
-    año = año.replace(" ", "")
+    mapa = data_structs["Fecha"]
+    min_año = datetime.datetime(2015, 1, 1)
+    max_año = datetime.datetime(2022, 12, 31)
+    rango = om.values(mapa, min_año.date(), max_año.date())
     finalList = lt.newList("ARRAY_LIST")
-    lista = data_structs["Accidente"]
-    for fechas in lt.iterator(lista):
-        if str(fechas["LOCALIDAD"]) == localidad:
-            if str(fechas["MES_OCURRENCIA_ACC"]) == mes:
-                if str(fechas["ANO_OCURRENCIA_ACC"]) == año:
-                    respuesta = fechas
-                    lt.addLast(finalList, respuesta)
+    for fechas in lt.iterator(rango):
+        for i in lt.iterator(fechas["lstaccidentes"]):
+            if str(i["LOCALIDAD"]) == localidad:
+                if str(i["MES_OCURRENCIA_ACC"]) == mes:
+                    if str(i["ANO_OCURRENCIA_ACC"]) == año:
+                        respuesta = fechas
+                        lt.addLast(finalList, respuesta)
     merg.sort(finalList, cmpreq1)
     size = lt.size(finalList)
     if size > 10:
-        subList = lt.subList(finalList, size - 9, 10)
+        subList = ultimosDiez(finalList)
     else:
         subList = finalList
     return finalList, subList
