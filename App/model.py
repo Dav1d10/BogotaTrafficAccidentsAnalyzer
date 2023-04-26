@@ -232,6 +232,7 @@ def req_2(data_structs, horaInicial, horaFinal, mes, año):
                 if str(i["ANO_OCURRENCIA_ACC"]) == año:
                     respuesta = i
                     lt.addLast(finalList, respuesta)
+    merg.sort(finalList, cmpreq1)
     return finalList
                     
     
@@ -408,8 +409,8 @@ def req_8(data_structs, fechaInicial, fechaFinal, clase):
             color = "lightgreen" 
         marker = folium.Marker(location=[i["LATITUD"], i["LONGITUD"]], popup='Accidente', icon=folium.Icon(color=color))
         marker.add_to(m)
-    print(m.save("mymap_output.html"))
-    return total_accidentes
+    m.save("mymap_output.html")
+    return total_accidentes, m
     
             
     

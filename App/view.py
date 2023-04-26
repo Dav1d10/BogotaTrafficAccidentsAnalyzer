@@ -283,7 +283,7 @@ def print_req_5(control, localidad, mes, año):
 def print_req_6(control, mes, año, latitud, longitud, radio, num_acc):
     datos = controller.req_6(control, mes, año, latitud, longitud, radio, num_acc)
     size = lt.size(datos)
-    print("Los " + str(num_acc) + " accidentes mas cercanos al punto (" + str(latitud) + ","+ str(longitud) + ") dentro de un radio de "+ str(radio) + " para el mes de " + str(mes) +  "de" + str("año") )
+    print("Los " + str(num_acc) + " accidentes mas cercanos al punto (" + str(latitud) + ","+ str(longitud) + ") dentro de un radio de "+ str(radio) + " para el mes de " + str(mes) +  " de " + str(año) )
     
     if size:
         headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
@@ -328,8 +328,9 @@ def print_req_8(control, fechaInicial, fechaFinal, clase):
         Función que imprime la solución del Requerimiento 8 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 8
-    datos = controller.req_8(control, fechaInicial, fechaFinal, clase)
-    return datos
+    datos, m = controller.req_8(control, fechaInicial, fechaFinal, clase)
+    print("Hay " + str(datos) + " acccidentes entre las fechas " + fechaInicial + " y " + fechaFinal)
+    print(m)
     
 
 
