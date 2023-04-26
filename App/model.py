@@ -364,19 +364,20 @@ def req_7(data_structs, mes, año):
     subList = lt.newList("ARRAY_LIST")
     fecha = lt.getElement(finalList, 1)
 
-    fecha1 = datetime.datetime.strptime(fecha["FECHA_OCURRENCIA_ACC"], "%Y/%m/%d")
+    fecha = fecha["FECHA_OCURRENCIA_ACC"]
+    fecha1 = datetime.datetime.strptime(fecha, "%Y/%m/%d")
+    fecha = int(fecha[8:10])
     fechaNumero = datetime.timedelta(days = 1)
-    for x in range(31):
+    for x in range(1, 32):
         subList = lt.newList("ARRAY_LIST")
-        print(fecha1)
         for i in lt.iterator(finalList):
             if datetime.datetime.strptime(i["FECHA_OCURRENCIA_ACC"] , "%Y/%m/%d") == fecha1:
-                print("x")
-                respuesta = i
-                lt.addLast(subList, respuesta)
-        if lt.size(subList) != 0:
-            mp.put(finalMap, fecha1, subList)
+                lt.addLast(subList, i)
+        if lt.isEmpty(subList) == False:
+            mp.put(finalMap, fecha, subList)
         fecha1 += fechaNumero
+        fecha += 1
+    return finalMap
     
 
 
@@ -396,22 +397,20 @@ def req_8(data_structs, fechaInicial, fechaFinal, clase):
                 lt.addLast(finalList, respuesta)
                 size = lt.size(finalList)
     total_accidentes += size
-    locationList = lt.newList("ARRAY_LIST")
-    lt.addLast(locationList, i["LATITUD"])
-    lt.addLast(locationList, i["LONGITUD"])
-    tiles = "MyMapTiles"
-    attr = "Map Tiles by MyMapTiles"
-    m = folium.Map(location= [4.64230635, -74.06471382], zoom_start=10, tiles=tiles, attr=attr)
-    print(m.save("mymap.html"))
-    #folium.Marker(
-      #  location= [locationList],
-    #).add_to(m)
+    tiles = 'openstreetmap'
+    m = folium.Map(location=[4.64230635, -74.06471382], zoom_start=10, tiles=tiles)
+    for i in lt.iterator(finalList):
+        if i["GRAVEDAD"] == "CON MUERTOS":
+            color = "red"
+        elif i["GRAVEDAD"] == "CON HERIDOS":
+            color = "orange"
+        elif i["GRAVEDAD"] == "SOLO DANOS":
+            color = "lightgreen" 
+        marker = folium.Marker(location=[i["LATITUD"], i["LONGITUD"]], popup='Accidente', icon=folium.Icon(color=color))
+        marker.add_to(m)
+    print(m.save("mymap_output.html"))
     return total_accidentes
     
-    
-    
-    
-    #return total_accidentes
             
     
 

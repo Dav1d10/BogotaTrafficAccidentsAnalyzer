@@ -105,6 +105,49 @@ def imprimir_datos(datos):
     else:
         print("No se encontraron datos")
         
+        
+
+def tabulate_req7(datos):
+    size = lt.size(datos)
+    if size < 2:
+        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        table = []
+        for dato in lt.iterator(datos):
+            table.append([dato["CODIGO_ACCIDENTE"],
+                    dato["DIA_OCURRENCIA_ACC"],
+                    dato["DIRECCION"],
+                    dato["GRAVEDAD"],
+                    dato["CLASE_ACC"],
+                    dato["FECHA_HORA_ACC"],
+                    dato["LATITUD"],
+                    dato["LONGITUD"]])         
+        print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))  
+        print('\n')
+    elif size >= 2:
+        dato1 = lt.getElement(datos, 1)
+        dato2 = lt.getElement(datos, size)
+        table = []
+        headers = ["CODIGO_ACCIDENTE", "DIA_OCURRENCIA_ACC", "DIRECCION", "GRAVEDAD", "CLASE_ACC", "FECHA_HORA_ACC", "LATITUD", "LONGITUD"]
+        table.append([dato1["CODIGO_ACCIDENTE"],
+                        dato1["DIA_OCURRENCIA_ACC"],
+                        dato1["DIRECCION"],
+                        dato1["GRAVEDAD"],
+                        dato1["CLASE_ACC"],
+                        dato1["FECHA_HORA_ACC"],
+                        dato1["LATITUD"],
+                        dato1["LONGITUD"]])
+        table.append([dato2["CODIGO_ACCIDENTE"],
+                        dato2["DIA_OCURRENCIA_ACC"],
+                        dato2["DIRECCION"],
+                        dato2["GRAVEDAD"],
+                        dato2["CLASE_ACC"],
+                        dato2["FECHA_HORA_ACC"],
+                        dato2["LATITUD"],
+                        dato2["LONGITUD"]])
+        print(tabulate(table, headers, tablefmt="grid", maxcolwidths=14, maxheadercolwidths=9))
+    else:
+        print("No se encontraron datos")
+        
 
 def print_req_1(control, fechaInicial, fechaFinal):
     """
@@ -266,6 +309,16 @@ def print_req_7(control, mes, año):
     """
     # TODO: Imprimir el resultado del requerimiento 7
     datos = controller.req_7(control, mes, año)
+    print("Accidentes mas tempranos y tardios para el mes " + mes + " de " + año)
+    print('\n')
+    for i in range(1, 32):
+        print("Accidentes del dia " + str(i) + " de " + mes + " del " + año)
+        print('\n')
+        try:
+            tabla = me.getValue(mp.get(datos, i))
+            tabulate_req7(tabla)
+        except TypeError:
+            print("No hay ningun accidente en dicha fecha")
     return datos
     
 
@@ -369,12 +422,12 @@ if __name__ == "__main__":
                 radio = float(input("Ingrese el radio: "))
                 num_acc = int(input("Ingrese el numero de accidentes que quiere conocer: "))
                 print_req_6(control, mes, año, latitud, longitud, radio, num_acc)
-                print_req_6(control, mes, año, latitud, longitud, radio, num_acc)
+                
 
             elif int(inputs) == 8:
                 mes = str(input("Ingrese el mes: "))
                 año = str(input("Ingrese el año: "))
-                print(print_req_7(control, mes, año))
+                print_req_7(control, mes, año)
 
             elif int(inputs) == 9:
                 fechaInicial = str(input("Ingrese la fecha inicial: "))
