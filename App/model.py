@@ -238,7 +238,7 @@ def req_2(data_structs, horaInicial, horaFinal, mes, año):
                 if str(i["ANO_OCURRENCIA_ACC"]) == año:
                     respuesta = i
                     lt.addLast(finalList, respuesta)
-    merg.sort(finalList, cmpreq1)
+    merg.sort(finalList, cmpreq2)
     return finalList
                     
     
@@ -463,6 +463,18 @@ def cmpreq1(fecha1, fecha2):
     if datetime.datetime.strptime(fecha1["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00") == datetime.datetime.strptime(fecha2["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00"):
         return 0
     elif datetime.datetime.strptime(fecha1["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00") > datetime.datetime.strptime(fecha2["FECHA_HORA_ACC"], "%Y/%m/%d %H:%M:%S+00"):
+        return 1
+    else:
+        return 0
+    
+    
+def cmpreq2(fecha1, fecha2):
+    if datetime.datetime.strptime(fecha1["HORA_OCURRENCIA_ACC"], "%H:%M:%S") == datetime.datetime.strptime(fecha2["HORA_OCURRENCIA_ACC"], "%H:%M:%S"):
+        if datetime.datetime.strptime(fecha1["FECHA_OCURRENCIA_ACC"], "%Y/%m/%d") <  datetime.datetime.strptime(fecha2["FECHA_OCURRENCIA_ACC"], "%Y/%m/%d"):
+            return 1
+        else:
+            return 0
+    elif datetime.datetime.strptime(fecha1["HORA_OCURRENCIA_ACC"], "%H:%M:%S") < datetime.datetime.strptime(fecha2["HORA_OCURRENCIA_ACC"], "%H:%M:%S"):
         return 1
     else:
         return 0
