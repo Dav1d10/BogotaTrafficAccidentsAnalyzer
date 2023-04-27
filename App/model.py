@@ -403,7 +403,8 @@ def req_7(data_structs, mes, año):
         hora = hora[0:2]
         hora = hora + ":00:00"
         diccionario_grafica[hora] += 1
-    return finalMap, diccionario_grafica
+    size = lt.size(finalList)
+    return finalMap, diccionario_grafica, size
 
 
 def req_8(data_structs, fechaInicial, fechaFinal, clase):

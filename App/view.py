@@ -331,7 +331,7 @@ def print_req_7(control, mes, año):
         Función que imprime la solución del Requerimiento 7 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 7
-    datos, diccionario_grafica = controller.req_7(control, mes, año)
+    datos, diccionario_grafica, size = controller.req_7(control, mes, año)
     print("Accidentes mas tempranos y tardios para el mes " + mes + " de " + año)
     print('\n')
     for i in range(1, 32):
@@ -339,15 +339,17 @@ def print_req_7(control, mes, año):
         print('\n')
         try:
             tabla = me.getValue(mp.get(datos, i))
-            #tabulate_req7(tabla)
+            tabulate_req7(tabla)
         except TypeError:
             print("No hay ningun accidente en dicha fecha")
     labels = list(diccionario_grafica.keys())
     frequencies = list(diccionario_grafica.values())
     fig, ax = plt.subplots()
-    ax.bar(labels, frequencies, width = 1, align = "center")
-    ax.set_xlabel("Datos")
-    ax.set_title("Histograma de frecuencias")
+    ax.bar(labels, frequencies, width = 0.7, align = "center")
+    ax.set_xticklabels(labels, rotation=90)
+    ax.set_xlabel("Hora del día")
+    ax.set_ylabel("Número de accidentes")
+    ax.set_title("Frecuencia de " + str(size) + " accidentes por hora del día para el mes de " + mes + " de " + año)
     plt.ion()
     plt.show()
     return datos
