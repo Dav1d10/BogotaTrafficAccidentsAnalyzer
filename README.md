@@ -16,6 +16,10 @@ This repository is part of the Data Structures and Algorithms (#EDA) teaching fr
 
 [DISClib][disclib-url] · [DISClib Demo and Examples][demo-url] · [Report Bug][challenge3-bugs-url] · [Request Feature][challenge3-issues-url]
 
+## Project Documentation
+
+[Project Analysis]()
+
 ## Members
 
 - David Caro
@@ -70,6 +74,20 @@ To run this project locally, make sure you have the following installed:
 
 ## How to run
 
+Follow these steps to run the application locally:
+
+1. Clone the repository
+```bash
+  git clone https://github.com/Dav1d10/BogotaTrafficAccidentsAnalyzer.git
+  ```
+2. Open a terminal and navigate to the `App` folder
+```bash
+  cd App
+  ```
+3. Execute the main script `view.py` from the terminal
+```bash
+  python view.py
+  ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
