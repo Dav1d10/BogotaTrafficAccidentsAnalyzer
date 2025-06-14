@@ -18,8 +18,8 @@ This repository is part of the Data Structures and Algorithms (#EDA) teaching fr
 
 ## Project Documentation
 
-- [Project Context and Requirements](docs/ProjectOverview.pdf)
-- [Project Analysis](docs/ProjectAnalysis.pdf)
+- [Project Context and Requirements](Docs/ProjectOverview.pdf)
+- [Project Analysis](Docs/ProjectAnalysis.pdf)
 
 ## Members
 
