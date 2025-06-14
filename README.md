@@ -45,6 +45,32 @@ The project is organized into four main folders:
 
 [Back to top](#bogotatrafficaccidentsanalyzere)
 
+## Prerequisites
+
+To run this project locally, make sure you have the following installed:
+
+- **Python 3.8 or higher** – Required to run the application.
+  Check your version with
+```bash
+  python --version
+  ```
+- **pip** – Python package installer (usually included with Python).
+  Check with
+```bash
+  pip --version
+  ```
+- **tabulate** – For printing formatted tables in the terminal.
+```bash
+  pip install tabulate
+  ```
+- **matplotlib** – Required for generating visualizations like histograms.
+```bash
+  pip install matplotlib
+  ```
+
+## How to run
+
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
@@ -108,7 +134,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 * [Santiago Arteaga][phillipus85-url] is a contributor and repository administrator. 
 * [Luis Florez][le99-url] is a contributor and developed examples and tutorials for the library.
 
-[Back to top](#challenge-template)
+[Back to top](#bogotatrafficaccidentsanalyzer)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
